@@ -9,7 +9,7 @@ import Weather from "./components/Weather.js";
 
 // const API_KEY = "2a5fa7c060d77aaf99b056496d191716";
 
-class App extends React.Component{
+class App extends React.Component {
   state = {
     temperature: undefined,
     city: undefined,
@@ -25,7 +25,7 @@ class App extends React.Component{
     const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=2a5fa7c060d77aaf99b056496d191716`);
     const data = await api_call.json();
     if (city && country) {
-      console.log(data);
+
       this.setState({
         temperature: data.main.temp,
         city: data.name,
@@ -33,7 +33,7 @@ class App extends React.Component{
         humdity: data.main.humdity,
         description: data.weather[0].description,
         error: ""
-  
+
       });
     } else {
       this.setState({
@@ -43,29 +43,44 @@ class App extends React.Component{
         humdity: undefined,
         description: undefined,
         error: "Please enter the value."
-  
+
       });
 
     }
 
   }
 
-  render(){
+  render() {
     return (
       <div>
-        <Titles />
-        <Form getWeather={this.getWeather }/>
-      <Weather  
-        temperature={this.state.temperature} 
-        city={this.state.city}
-        country={this.state.country}
-        humdity={this.state.humdity}
-        description={this.state.description}
-        error={this.state.error}
-        />
+        <div className="wrapper">
+          <div className="main">
+            <div className="container">
+              <div className="row">
+                <div className="col-xs-5 title-container">
+                  <Titles />
+                </div>
+                <div className="col-xs-7 form-container">
+                
+                  <Form getWeather={this.getWeather} />
+                <Weather
+                  temperature={this.state.temperature}
+                  city={this.state.city}
+                  country={this.state.country}
+                  humdity={this.state.humdity}
+                  description={this.state.description}
+                  error={this.state.error}
+                />
+
+                </div>
+              </div>
+            </div>
+          </div>        
+         </div>
       </div>
     );
   }
 };
+
 
 export default App;
